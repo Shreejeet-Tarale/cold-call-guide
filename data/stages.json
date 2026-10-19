@@ -16,6 +16,23 @@
         "Asked who is calling or from where",
         "Audio unclear or callback needed"
       ]
+    },
+    {
+      "id": 2,
+      "name": "Purpose",
+      "purpose": "Explain why you are calling, why the conversation is relevant to the prospect's company, and what you would like to discuss.",
+      "they_may_say": [
+        "No, no. Regarding what is it, madam?",
+        "So what is that regarding? What do I need to help you with in this?",
+        "For what?"
+      ],
+      "tap_options": [
+        "Purpose explained clearly",
+        "Asked why I was calling",
+        "Requested more details",
+        "Declined after hearing the purpose"
+      ]
     }
+
   ]
 }
