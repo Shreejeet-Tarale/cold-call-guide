@@ -48,7 +48,25 @@
         "Busy — callback time not agreed",
         "Declined to continue"
       ]
+    },
+    
+    {
+      "id": 4,
+      "name": "Their Business",
+      "purpose": "Understand what the prospect's company does, how it operates, which customers it serves, and how its business model works.",
+      "they_may_say": [
+        "We are only manufacturing. We do only manufacturing.",
+        "I'm currently dealing in India only, and the clients I work with are very old relations.",
+        "Our company majorly works on a job work basis. We are into chemical manufacturing, and we majorly work on job work."
+      ],
+      "tap_options": [
+        "Business model or operations explained",
+        "Products or services described",
+        "Customers or target markets described",
+        "Business details unclear"
+      ]
     }
+
 
 
   ]
