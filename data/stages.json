@@ -1,0 +1,21 @@
+
+{
+  "stages": [
+    {
+      "id": 1,
+      "name": "Opening",
+      "purpose": "Confirm you have reached the intended person and introduce yourself and your company clearly.",
+      "they_may_say": [
+        "Yes, who's this?",
+        "From where? Can you say it again?",
+        "You are calling from where?"
+      ],
+      "tap_options": [
+        "Right person reached",
+        "Wrong person or outdated number",
+        "Asked who is calling or from where",
+        "Audio unclear or callback needed"
+      ]
+    }
+  ]
+}
