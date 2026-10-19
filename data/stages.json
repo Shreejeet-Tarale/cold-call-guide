@@ -118,6 +118,23 @@
       ]
     },
     
+    {
+      "id": 8,
+      "name": "Close",
+      "purpose": "End the call professionally, confirm any agreed next action, and record the final call outcome accurately.",
+      "they_may_say": [
+        "I'll have a look at it, yeah. And I'll reply to that mail. Thank you.",
+        "Done.",
+        "You can call me next week."
+      ],
+      "tap_options": [
+        "Positive outcome or report accepted",
+        "Next step or callback agreed",
+        "Declined or requested no further contact",
+        "Wrong contact or no clear outcome"
+      ]
+    }
+
 
 
 
