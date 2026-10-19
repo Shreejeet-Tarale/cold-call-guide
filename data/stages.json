@@ -32,7 +32,24 @@
         "Requested more details",
         "Declined after hearing the purpose"
       ]
+    },
+    {
+      "id": 3,
+      "name": "Permission",
+      "purpose": "Check whether the prospect can speak now. If they are busy, agree on a suitable callback time rather than continuing without permission.",
+      "they_may_say": [
+        "Ah, yes. Go ahead.",
+        "Yes, please proceed.",
+        "I am just getting into a school event. Can we speak at 1:30, Rohit?"
+      ],
+      "tap_options": [
+        "Available to talk now",
+        "Callback requested — time agreed",
+        "Busy — callback time not agreed",
+        "Declined to continue"
+      ]
     }
+
 
   ]
 }
