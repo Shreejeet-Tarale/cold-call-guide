@@ -122,3 +122,46 @@ These observations cover T016–T030 only. Validate their prevalence against the
 
 Findings now cover T001–T045. These observations are preliminary and should be validated against the remaining transcripts before finalising stage content or overall outcome statistics.
 ----------------------------------------------------------------------------------------------------------------------
+
+## 4. Fourth Sample: T046–T060
+
+### Call-by-call observations
+
+- T046: Prospect accepted a report via WhatsApp and agreed to a callback next Tuesday or Wednesday around 10–10:30. Recorded outcome: `not_logged`.
+- T047: Prospect asked about charges and publication, then requested details through WhatsApp after hearing the report was free and would be published after approval. Recorded outcome: `interested`.
+- T048: Prospect questioned the relevance and purpose of the research series, then put the caller on hold. The call did not resume. Recorded outcome: `follow_up`.
+- T049: Prospect explained that sustainability was their responsibility and other teams handled growth-related functions. Recorded outcome: `do_not_call`.
+- T050: Prospect referred the caller to Mr. Naik, who handled company operations, and offered to share his details. Recorded outcome: `not_logged`.
+- T051: Prospect asked how the company benefited from its free report, understood the commercial purpose, and requested the report by official email. Recorded outcome: `agreed_to_receive_report`.
+- T052: Prospect accepted the report and preferred email. Recorded outcome: `not_logged`.
+- T053: Prospect questioned the value of the report, said they lacked time, and suggested contacting someone else. Recorded outcome: `not_interested`.
+- T054: Prospect agreed to receive the report through WhatsApp and email. Recorded outcome: `agreed_to_receive_report`.
+- T055: Prospect requested an email describing the company and its operations before discussing it with their team. Recorded outcome: `follow_up`.
+- T056: Prospect requested reading material on WhatsApp and said they could discuss it later. Recorded outcome: `not_logged`.
+- T057: Prospect questioned the company's commercial intentions and wanted to understand what would happen after the report. No specific next meeting was agreed. Recorded outcome: `follow_up`.
+- T058: Prospect described existing internal growth processes but agreed to review the report and preferred WhatsApp. Recorded outcome: `agreed_to_receive_report`.
+- T059: Prospect confirmed they no longer worked at the listed company and were moving to another organisation. Recorded outcome: `moved_company`.
+- T060: Prospect requested the draft report on WhatsApp and agreed to a follow-up call the following Tuesday morning. Recorded outcome: `next_step_agreed`.
+
+### Additional themes
+
+1. **Commercial transparency:** Prospects want to understand why a report is free, how the provider benefits, and what happens afterward.
+2. **Communication preferences:** Email and WhatsApp are common channels for sending reports and supporting material.
+3. **Specific next steps:** Some prospects agree to a callback at a particular time or on a particular day.
+4. **Referral opportunities:** A prospect may direct the caller to the person responsible for operations or another relevant business function.
+5. **Existing internal processes:** Some companies believe they already have sufficient systems for growth and problem-solving.
+6. **Outcome discrepancies:** Several calls contain useful actions or agreements despite being logged as `not_logged`.
+
+### Preliminary product implications
+
+- Provide a short, transparent explanation of the free report and its commercial purpose.
+- Capture the preferred communication channel.
+- Record whether material was requested, sent, or merely offered.
+- Store agreed callback times and any action that must happen first.
+- Distinguish referrals from wrong-person outcomes.
+- Keep transcript evidence, stage results, and the final recorded outcome separate.
+
+### Status
+
+Findings now cover T001–T060. These observations remain preliminary until the remaining transcripts have been reviewed.
+----------------------------------------------------------------------------------------------------------------------
