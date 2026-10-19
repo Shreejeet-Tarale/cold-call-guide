@@ -99,7 +99,25 @@
         "No time or no current need",
         "Declined or requested no further contact"
       ]
-    }
+    },
+    
+    {
+      "id": 7,
+      "name": "Next Step",
+      "purpose": "Agree on a clear next action, such as sending a report, arranging a callback, or scheduling a meeting. Record the agreed timing and preferred channel when applicable.",
+      "they_may_say": [
+        "Tuesday is a good day.",
+        "Can we speak at 1:30, Rohit?",
+        "But give me a call sometime on Tuesday morning."
+      ],
+      "tap_options": [
+        "Meeting agreed",
+        "Callback agreed — timing captured",
+        "Send report or information",
+        "No specific next step agreed"
+      ]
+    },
+
 
 
 
