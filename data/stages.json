@@ -65,7 +65,25 @@
         "Customers or target markets described",
         "Business details unclear"
       ]
+    },
+    
+    {
+      "id": 5,
+      "name": "Their Need",
+      "purpose": "Understand the prospect's goals, business challenges, and priorities. Capture the need in the prospect's own words without assuming what the problem is.",
+      "they_may_say": [
+        "The biggest challenge is manpower requirement. Skilled manpower.",
+        "Probably I'm looking for people who can help me with some new products. Not discovering, but getting into new products, with our facility.",
+        "Nowadays my customers are more and more into sustainability. So what best can we offer them in terms of a sustainable solution?"
+      ],
+      "tap_options": [
+        "Specific business challenge identified",
+        "Goal or priority identified",
+        "Need is still unclear",
+        "No current need identified"
+      ]
     }
+
 
 
 
