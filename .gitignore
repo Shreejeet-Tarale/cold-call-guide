@@ -1,6 +1,6 @@
-
 # Python virtual environment
 .venv/
+venv/
 
 # Python cache files
 __pycache__/
@@ -11,3 +11,12 @@ __pycache__/
 
 # Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Frontend dependencies and build files
+node_modules/
+dist/
+
+# Private assignment transcripts
+/private_transcripts/
