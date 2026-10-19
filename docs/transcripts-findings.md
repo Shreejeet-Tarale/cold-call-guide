@@ -208,3 +208,45 @@ Findings now cover T001–T060. These observations remain preliminary until the 
 
 Findings now cover T001–T075. Validate these themes against the remaining 25 transcripts before finalising stage content or overall statistics.
 ----------------------------------------------------------------------------------------------------------------------
+
+## 6. Sixth Sample: T076–T090
+
+### Call-by-call observations
+
+- T076: Prospect questioned how the provider could create a differentiated report and requested contact from the analytics person. Recorded outcome: `not_interested`.
+- T077: Prospect already worked with major consultants, declined additional services, but allowed the caller to share the company website. Recorded outcome: `call_again`.
+- T078: Prospect requested the company portfolio, profile, and client details before considering collaboration. Recorded outcome: `interested`.
+- T079: Prospect was not authorised to approve the report and directed the caller to the compliance team. Recorded outcome: `wrong_person`.
+- T080: Prospect agreed to receive a free company profile and review it for corrections. Recorded outcome: `interested`.
+- T081: Prospect questioned the source of contact information, business model, and value proposition, requested the website, and agreed to a later callback. Recorded outcome: `interested`.
+- T082: Prospect agreed to receive the report, website, and company profile via WhatsApp but wanted to review them before deciding on a meeting. Recorded outcome: `not_logged`.
+- T083: Prospect agreed to receive the draft growth report through WhatsApp. Recorded outcome: `agreed_to_receive_report`.
+- T084: Prospect accepted growth ideas by WhatsApp and agreed to a follow-up call the following Thursday. Recorded outcome: `do_not_call`.
+- T085: Prospect agreed to a Thursday callback to arrange a discussion, but was unavailable due to vacation plans. Recorded outcome: `next_step_agreed`.
+- T086: Prospect agreed to receive a company profile, review it, and provide feedback. Recorded outcome: `next_step_agreed`.
+- T087: Prospect said they were not the decision-maker, requested supporting information by email, and provided their email address. Recorded outcome: `follow_up`.
+- T088: Prospect explained that existing global consulting agreements and central decision-making made an additional local provider unsuitable. Recorded outcome: `not_interested`.
+- T089: Prospect identified skilled manpower as a growth obstacle but requested another call after travelling. Recorded outcome: `follow_up`.
+- T090: Prospect requested company details and a sample report relevant to their industries and expressed interest in business analysis support. Recorded outcome: `interested`.
+
+### Additional themes
+
+1. **Credibility and differentiation:** Prospects request company profiles, client information, sample reports, and explanations of how the provider differs from existing services.
+2. **Information before commitment:** Agreeing to receive material does not necessarily mean agreeing to a meeting.
+3. **Existing providers:** Established consultants and central agreements may limit opportunities for new providers.
+4. **Decision-making authority:** A person may not be authorised to approve a report or commercial discussion.
+5. **Business challenges:** Prospects may identify concrete obstacles, such as a shortage of skilled manpower.
+6. **Outcome discrepancies:** T082 is marked `not_logged` despite agreement to receive information. T084 is marked `do_not_call` despite agreement to receive a report and a follow-up call.
+
+### Preliminary product implications
+
+- Provide concise prompts explaining the service, its value, and its differentiation.
+- Separate requests for information from meetings and confirmed follow-ups.
+- Capture existing providers and central decision-making as possible reasons for stalled progress.
+- Record the prospect's exact description of their business challenge.
+- Require an explicit final outcome and preserve the actions agreed during the conversation.
+
+### Status
+
+Findings now cover T001–T090. Review the final 10 transcripts before consolidating the findings and finalising the stage content.
+----------------------------------------------------------------------------------------------------------------------
