@@ -165,3 +165,46 @@ Findings now cover T001–T045. These observations are preliminary and should be
 
 Findings now cover T001–T060. These observations remain preliminary until the remaining transcripts have been reviewed.
 ----------------------------------------------------------------------------------------------------------------------
+
+## 5. Fifth Sample: T061–T075
+
+### Call-by-call observations
+
+- T061: Prospect initially said management was not interested, then agreed to receive a growth report by email. Recorded outcome: `agreed_to_receive_report`.
+- T062: Prospect requested the company's website and service details, agreed to receive the report, and proposed a decision call the following day. Recorded outcome: `agreed_to_receive_report`.
+- T063: Prospect requested an introductory email covering services, scope, website, and clients before deciding. Recorded outcome: `follow_up`.
+- T064: Prospect asked about the report's cost and requested a sample, agreeing to a follow-up. Recorded outcome: `follow_up`.
+- T065: Prospect said growth was not their responsibility but agreed to forward an email to the relevant person. Recorded outcome: `agreed_to_receive_report`.
+- T066: Prospect explained they had left the listed company eight years earlier and criticised the outdated contact data. Recorded outcome: `not_interested`.
+- T067: Prospect suggested speaking with the plant team, then agreed to receive the report by email. Recorded outcome: `agreed_to_receive_report`.
+- T068: The number belonged to a different company's service desk. The prospect agreed to a callback after being busy. Recorded outcome: `follow_up`.
+- T069: Prospect was busy with a work deadline and requested another call the following day or the day after. Recorded outcome: `follow_up`.
+- T070: Office staff explained that the intended director worked in Chennai and declined to provide the director's number. Recorded outcome: `wrong_person`.
+- T071: Prospect said the company already worked with major consulting firms and did not see a need for the proposed service. Recorded outcome: `not_interested`.
+- T072: Prospect agreed to receive a research profile by email once it was prepared. Recorded outcome: `next_step_agreed`.
+- T073: Prospect initially misunderstood the caller as a media house, then agreed to review an emailed report. Recorded outcome: `agreed_to_receive_report`.
+- T074: Prospect agreed to receive information by email and scheduled a discussion for the following Tuesday. Recorded outcome: `next_step_agreed`.
+- T075: Prospect did not consider themselves the right contact and declined to share another person's details. Recorded outcome: `do_not_call`.
+
+### Additional themes
+
+1. **Trust and credibility:** Prospects request the company's website, service information, or sample reports before deciding.
+2. **Decision-maker identification:** Some contacts redirect the caller to another person or department.
+3. **Conditional follow-up:** The next discussion may depend on reviewing material or consulting the team.
+4. **Outdated contact data:** Former employees and numbers belonging to other organisations disrupt calls.
+5. **Clear explanations:** Ambiguous descriptions can cause prospects to misunderstand the caller's business.
+6. **Distinguishing interest levels:** Agreeing to receive information does not always mean the prospect has agreed to a sales meeting.
+
+### Preliminary product implications
+
+- Provide a clear explanation of the company's services.
+- Record requested documents and preferred communication channels.
+- Capture the next action, its timing, and any conditions for a follow-up.
+- Record referrals and relevant departments when provided.
+- Provide distinct contact-data correction outcomes.
+- Distinguish receiving a report from agreeing to a meeting or a commercial discussion.
+
+### Status
+
+Findings now cover T001–T075. Validate these themes against the remaining 25 transcripts before finalising stage content or overall statistics.
+----------------------------------------------------------------------------------------------------------------------
