@@ -18,5 +18,5 @@ __pycache__/
 node_modules/
 dist/
 
-# Private assignment transcripts
+# Private assignm    ``\\\ent transcripts
 /private_transcripts/
