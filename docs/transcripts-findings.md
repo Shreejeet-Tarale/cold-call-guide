@@ -250,3 +250,40 @@ Findings now cover T001–T075. Validate these themes against the remaining 25 t
 
 Findings now cover T001–T090. Review the final 10 transcripts before consolidating the findings and finalising the stage content.
 ----------------------------------------------------------------------------------------------------------------------
+
+## 7. Final Sample: T091–T100
+
+### Call-by-call observations
+
+- T091: Prospect repeatedly asked what Meridian does, then agreed to receive the company profile by email. Recorded outcome: `agreed_to_receive_report`.
+- T092: Prospect already had a consultant working on similar growth issues but agreed to receive Meridian's report by email for possible future reference. Recorded outcome: `agreed_to_receive_report`.
+- T093: Prospect discussed growth opportunities in depth, highlighted sustainability, requested a PDF, and agreed to reconnect the following day at 3 PM. Recorded outcome: `follow_up`.
+- T094: Prospect questioned the service's fit for a technology-enabled manufacturer, then agreed to receive the website and a sample profile by email. Recorded outcome: `not_logged`.
+- T095: Prospect explained that margin changes were unsuitable for its job-work model and preferred research on new products. A Wednesday follow-up was discussed. Recorded outcome: `next_step_agreed`.
+- T096: Startup founder described a proposed shift from drone contracting to a geospatial data-utility model and discussed challenges involving public data access and government support. Recorded outcome: `next_step_agreed`.
+- T097: Prospect explained that company-level decisions belonged to Novara India's leadership rather than the supply-chain IT function. Recorded outcome: `not_interested`.
+- T098: Prospect described frequent reorganisations and uncertainty about their future role, saying a discussion might be appropriate the following year. Recorded outcome: `follow_up`.
+- T099: Prospect requested the company profile by email before deciding whether there might be a fit for a future discussion. Recorded outcome: `agreed_to_receive_report`.
+- T100: Prospect discussed the organisation's EBITDA growth efforts, agreed to receive company details, and confirmed a phone callback for the following Monday. Recorded outcome: `agreed_to_receive_report`.
+
+### Additional themes
+
+1. **Service clarity:** Prospects need to understand what the company does, how it works, and what they can expect.
+2. **Specific business priorities:** Prospects may prioritise sustainability, new products, profitability, or other goals rather than generic growth.
+3. **Business-model fit:** Advice needs to be relevant to the prospect's actual business model.
+4. **Organisational constraints:** Government policy, corporate structures, decision-making authority, and organisational changes can affect progress.
+5. **Outcome accuracy:** Agreement to receive information, a follow-up conversation, and a meeting are distinct actions and should be captured separately.
+6. **Longer conversations:** Detailed calls may reveal several business challenges, so the notes field should preserve the prospect's own words.
+
+### Preliminary product implications
+
+- Make the company's purpose easy to explain at the opening stage.
+- Record the prospect's business priority and challenge in their own words.
+- Distinguish the prospect's interest in information from an agreed meeting.
+- Capture requested materials, next actions, and specific follow-up times.
+- Keep the recorded outcome separate from the stage-by-stage results.
+
+### Status
+
+The initial review now covers T001–T100. Consolidate and validate the previous batch notes against the original transcripts before finalising stage content and outcome statistics.
+----------------------------------------------------------------------------------------------------------------------
