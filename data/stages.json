@@ -82,7 +82,25 @@
         "Need is still unclear",
         "No current need identified"
       ]
+    },
+    
+    {
+      "id": 6,
+      "name": "Objection",
+      "purpose": "Understand the prospect's concern, acknowledge it, and respond respectfully when appropriate. Do not pressure a prospect who declines or asks not to be contacted again.",
+      "they_may_say": [
+        "Meri internal team hai, to hum log nahi karte abhi.",
+        "How is this different from the other companies who are doing and submitting reports? Is anything new going to come? Because we do have a lot of reports.",
+        "No, I don't have time for such work. You should call somebody else. Thank you."
+      ],
+      "tap_options": [
+        "Already handled internally or by an existing provider",
+        "Questions about value or differentiation",
+        "No time or no current need",
+        "Declined or requested no further contact"
+      ]
     }
+
 
 
 
