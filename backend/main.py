@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import json
@@ -36,6 +37,26 @@ app = FastAPI(
     description="Backend API for the Live Cold Call Guide",
     version="0.1.0",
 )
+# -----------------------------------------------------------------------------------------------------------------
+
+# Permit the local Vite frontend and configured deployment origins.
+ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173",
+    ).split(",")
+    if origin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 
 # -----------------------------------------------------------------------------------------------------------------
 
