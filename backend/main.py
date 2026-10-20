@@ -1,7 +1,9 @@
 
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
+from uuid import UUID
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
@@ -9,7 +11,7 @@ from pydantic import BaseModel, Field
 from supabase import Client, create_client
 
 
-# Load environment variables from backend/.env
+# Load backend/.env
 BACKEND_DIR = Path(__file__).resolve().parent
 load_dotenv(BACKEND_DIR / ".env")
 
@@ -32,18 +34,21 @@ app = FastAPI(
 )
 
 
-# Request model for starting a call
 class StartCallRequest(BaseModel):
     prospect_name: Optional[str] = Field(default=None, max_length=200)
     company_name: Optional[str] = Field(default=None, max_length=200)
     prospect_role: Optional[str] = Field(default=None, max_length=200)
 
 
+class SaveStageRequest(BaseModel):
+    stage_number: int = Field(ge=1, le=8)
+    selected_actions: list[str] = Field(default_factory=list)
+    prospect_words: Optional[str] = Field(default=None, max_length=5000)
+
+
 @app.get("/")
 def home():
-    return {
-        "message": "Cold Call Guide API is running"
-    }
+    return {"message": "Cold Call Guide API is running"}
 
 
 @app.get("/health")
@@ -64,11 +69,7 @@ def database_health_check():
 
     try:
         supabase_client.table("calls").select("id").limit(1).execute()
-
-        return {
-            "status": "ok",
-            "database": "connected",
-        }
+        return {"status": "ok", "database": "connected"}
 
     except Exception as exc:
         raise HTTPException(
@@ -79,8 +80,6 @@ def database_health_check():
 
 @app.post("/calls", status_code=201)
 def start_call(request: StartCallRequest):
-    """Create a new call record in Supabase."""
-
     if supabase_client is None:
         raise HTTPException(
             status_code=503,
@@ -97,8 +96,7 @@ def start_call(request: StartCallRequest):
 
     try:
         response = (
-            supabase_client
-            .table("calls")
+            supabase_client.table("calls")
             .insert(call_data)
             .execute()
         )
@@ -121,4 +119,93 @@ def start_call(request: StartCallRequest):
         raise HTTPException(
             status_code=500,
             detail="Failed to start the call. Check backend logs.",
+        ) from exc
+
+
+@app.post("/calls/{call_id}/stages")
+def save_stage_result(call_id: UUID, request: SaveStageRequest):
+    if supabase_client is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Supabase credentials are not configured.",
+        )
+
+    try:
+        # Find the call before saving its stage result.
+        call_response = (
+            supabase_client.table("calls")
+            .select("id, status, last_stage_reached")
+            .eq("id", str(call_id))
+            .execute()
+        )
+
+        if not call_response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Call not found.",
+            )
+
+        call_record = call_response.data[0]
+
+        if call_record["status"] == "completed":
+            raise HTTPException(
+                status_code=409,
+                detail="This call is already completed.",
+            )
+
+        now = datetime.now(timezone.utc).isoformat()
+
+        stage_data = {
+            "call_id": str(call_id),
+            "stage_number": request.stage_number,
+            "selected_actions": request.selected_actions,
+            "prospect_words": request.prospect_words,
+            "updated_at": now,
+        }
+
+        # Insert the result or update it if this stage was saved before.
+        stage_response = (
+            supabase_client.table("stage_results")
+            .upsert(
+                stage_data,
+                on_conflict="call_id,stage_number",
+            )
+            .execute()
+        )
+
+        if not stage_response.data:
+            raise HTTPException(
+                status_code=500,
+                detail="The stage result could not be saved.",
+            )
+
+        # Keep the highest stage reached, even when revisiting an earlier stage.
+        highest_stage = max(
+            int(call_record.get("last_stage_reached") or 1),
+            request.stage_number,
+        )
+
+        (
+            supabase_client.table("calls")
+            .update({
+                "last_stage_reached": highest_stage,
+                "updated_at": now,
+            })
+            .eq("id", str(call_id))
+            .execute()
+        )
+
+        return {
+            "message": "Stage result saved successfully",
+            "stage_result": stage_response.data[0],
+            "last_stage_reached": highest_stage,
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to save the stage result. Check backend logs.",
         ) from exc
