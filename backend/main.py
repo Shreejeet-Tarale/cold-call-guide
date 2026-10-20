@@ -415,6 +415,56 @@ def get_call_details(call_id: UUID):
             status_code=500,
             detail="Failed to retrieve call details. Check backend logs.",
         ) from exc
+        
+# -----------------------------------------------------------------------------------------------------------------
+
+@app.get("/stats/calls-by-stage")
+def get_call_stage_stats():
+    """Return total calls and counts grouped by last stage reached."""
+
+    if supabase_client is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Supabase credentials are not configured.",
+        )
+
+    try:
+        # Count all calls directly in the database.
+        total_response = (
+            supabase_client.table("calls")
+            .select("id", count="exact", head=True)
+            .execute()
+        )
+
+        total_calls = total_response.count or 0
+        stage_counts = []
+
+        # Count calls whose last recorded stage is 1 through 8.
+        for stage_number in range(1, 9):
+            response = (
+                supabase_client.table("calls")
+                .select("id", count="exact", head=True)
+                .eq("last_stage_reached", stage_number)
+                .execute()
+            )
+
+            stage_counts.append({
+                "stage_number": stage_number,
+                "count": response.count or 0,
+            })
+
+        return {
+            "total_calls": total_calls,
+            "stage_counts": stage_counts,
+        }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to retrieve call statistics. Check backend logs.",
+        ) from exc
+# -----------------------------------------------------------------------------------------------------------------
+
 
 
 
