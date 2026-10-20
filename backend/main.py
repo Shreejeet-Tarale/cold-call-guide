@@ -364,6 +364,57 @@ def get_stages():
             status_code=500,
             detail="Stage configuration file is missing or invalid.",
         ) from exc
+# -----------------------------------------------------------------------------------------------------------------
+
+@app.get("/calls/{call_id}")
+def get_call_details(call_id: UUID):
+    """Retrieve one call and its saved stage results."""
+
+    if supabase_client is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Supabase credentials are not configured.",
+        )
+
+    try:
+        # Retrieve the requested call.
+        call_response = (
+            supabase_client.table("calls")
+            .select("*")
+            .eq("id", str(call_id))
+            .execute()
+        )
+
+        if not call_response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Call not found.",
+            )
+
+        call_record = call_response.data[0]
+
+        # Retrieve the results saved for this call.
+        stages_response = (
+            supabase_client.table("stage_results")
+            .select("*")
+            .eq("call_id", str(call_id))
+            .order("stage_number")
+            .execute()
+        )
+
+        return {
+            "call": call_record,
+            "stage_results": stages_response.data,
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to retrieve call details. Check backend logs.",
+        ) from exc
 
 
 
