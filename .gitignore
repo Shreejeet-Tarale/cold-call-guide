@@ -20,3 +20,4 @@ dist/
 
 # Private assignm    ``\\\ent transcripts
 /private_transcripts/
+backend/.env.example
