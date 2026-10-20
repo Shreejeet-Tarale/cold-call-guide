@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import PastCalls from './PastCalls'
 
 const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL ||
@@ -48,6 +49,7 @@ function formatDuration(totalSeconds) {
 }
 
 function App() {
+  const [activeView, setActiveView] = useState('live')
   const [stages, setStages] = useState([])
   const [stageStatus, setStageStatus] = useState('loading')
   const [stageError, setStageError] = useState('')
@@ -327,6 +329,38 @@ function App() {
               </p>
             </div>
           </div>
+          
+          <nav
+            aria-label="Main navigation"
+            className="flex flex-wrap items-center gap-2"
+          >
+            <button
+              type="button"
+              onClick={() => setActiveView('live')}
+              aria-current={activeView === 'live' ? 'page' : undefined}
+              className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                activeView === 'live'
+                  ? 'bg-indigo-700 text-white'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              Live Call
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveView('history')}
+              disabled={Boolean(activeCall)}
+              aria-current={activeView === 'history' ? 'page' : undefined}
+              className={`rounded-lg px-3 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${
+                activeView === 'history'
+                  ? 'bg-indigo-700 text-white'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              Past Calls
+            </button>
+          </nav>
 
           <div className="flex items-center gap-3">
             {activeCall && (
@@ -348,6 +382,14 @@ function App() {
         </div>
       </header>
 
+      {activeView === 'history' ? (
+        <PastCalls
+          onStartNewCall={() => {
+            handleNewCall()
+            setActiveView('live')
+          }}
+        />
+      ) : (
       <main className="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-10">
         <div className="mb-8 flex flex-col gap-2">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-700">
@@ -801,6 +843,7 @@ function App() {
           </div>
         )}
       </main>
+      )}
 
       {showEndDialog && activeCall && (
         <div
