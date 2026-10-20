@@ -1,5 +1,6 @@
 
 import os
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -14,6 +15,8 @@ from supabase import Client, create_client
 
 # Load backend/.env
 BACKEND_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BACKEND_DIR.parent
+STAGES_FILE = PROJECT_ROOT / "data" / "stages.json"
 load_dotenv(BACKEND_DIR / ".env")
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -322,6 +325,44 @@ def get_calls():
         raise HTTPException(
             status_code=500,
             detail="Failed to retrieve calls. Check backend logs.",
+        ) from exc
+# -----------------------------------------------------------------------------------------------------------------
+
+@app.get("/stages")
+def get_stages():
+    """Return the eight-stage cold call guide configuration."""
+
+    try:
+        with STAGES_FILE.open("r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        stages = data.get("stages")
+
+        # Confirm that all eight stages are configured.
+        if not isinstance(stages, list) or len(stages) != 8:
+            raise HTTPException(
+                status_code=500,
+                detail="Stage configuration must contain exactly eight stages.",
+            )
+
+        expected_ids = list(range(1, 9))
+        actual_ids = [stage.get("id") for stage in stages]
+
+        if actual_ids != expected_ids:
+            raise HTTPException(
+                status_code=500,
+                detail="Stage IDs must be ordered from 1 through 8.",
+            )
+
+        return data
+
+    except HTTPException:
+        raise
+
+    except (OSError, json.JSONDecodeError) as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Stage configuration file is missing or invalid.",
         ) from exc
 
 
