@@ -220,6 +220,7 @@ def save_stage_result(call_id: UUID, request: SaveStageRequest):
             detail="Failed to save the stage result. Check backend logs.",
         ) from exc
         
+# -----------------------------------------------------------------------------------------------------------------
 
 @app.post("/calls/{call_id}/end")
 def end_call(call_id: UUID, request: EndCallRequest):
@@ -289,4 +290,40 @@ def end_call(call_id: UUID, request: EndCallRequest):
             status_code=500,
             detail="Failed to complete the call. Check backend logs.",
         ) from exc
+        
+# -----------------------------------------------------------------------------------------------------------------
+
+@app.get("/calls")
+def get_calls():
+    """Retrieve recent calls for the Past Calls screen."""
+
+    if supabase_client is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Supabase credentials are not configured.",
+        )
+
+    try:
+        response = (
+            supabase_client
+            .table("calls")
+            .select("*")
+            .order("created_at", desc=True)
+            .limit(50)
+            .execute()
+        )
+
+        return {
+            "count": len(response.data),
+            "calls": response.data,
+        }
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to retrieve calls. Check backend logs.",
+        ) from exc
+
+
+
 
