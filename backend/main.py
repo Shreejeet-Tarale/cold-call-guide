@@ -10,6 +10,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from supabase import Client, create_client
 
+# -----------------------------------------------------------------------------------------------------------------
 
 # Load backend/.env
 BACKEND_DIR = Path(__file__).resolve().parent
@@ -33,6 +34,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
+# -----------------------------------------------------------------------------------------------------------------
 
 class StartCallRequest(BaseModel):
     prospect_name: Optional[str] = Field(default=None, max_length=200)
@@ -44,7 +46,14 @@ class SaveStageRequest(BaseModel):
     stage_number: int = Field(ge=1, le=8)
     selected_actions: list[str] = Field(default_factory=list)
     prospect_words: Optional[str] = Field(default=None, max_length=5000)
+    
 
+class EndCallRequest(BaseModel):
+    outcome: str = Field(min_length=1, max_length=100)
+    summary: Optional[str] = Field(default=None, max_length=5000)
+
+
+# -----------------------------------------------------------------------------------------------------------------
 
 @app.get("/")
 def home():
@@ -58,6 +67,7 @@ def health_check():
         "service": "cold-call-guide-api",
     }
 
+# -----------------------------------------------------------------------------------------------------------------
 
 @app.get("/db-health")
 def database_health_check():
@@ -77,7 +87,7 @@ def database_health_check():
             detail="Supabase connection failed. Check backend configuration.",
         ) from exc
 
-
+# -----------------------------------------------------------------------------------------------------------------
 @app.post("/calls", status_code=201)
 def start_call(request: StartCallRequest):
     if supabase_client is None:
@@ -120,7 +130,7 @@ def start_call(request: StartCallRequest):
             status_code=500,
             detail="Failed to start the call. Check backend logs.",
         ) from exc
-
+# -----------------------------------------------------------------------------------------------------------------
 
 @app.post("/calls/{call_id}/stages")
 def save_stage_result(call_id: UUID, request: SaveStageRequest):
@@ -209,3 +219,74 @@ def save_stage_result(call_id: UUID, request: SaveStageRequest):
             status_code=500,
             detail="Failed to save the stage result. Check backend logs.",
         ) from exc
+        
+
+@app.post("/calls/{call_id}/end")
+def end_call(call_id: UUID, request: EndCallRequest):
+    """Complete a call and save its final outcome."""
+
+    if supabase_client is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Supabase credentials are not configured.",
+        )
+
+    try:
+        # Confirm that the call exists.
+        call_response = (
+            supabase_client.table("calls")
+            .select("id, status")
+            .eq("id", str(call_id))
+            .execute()
+        )
+
+        if not call_response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Call not found.",
+            )
+
+        call_record = call_response.data[0]
+
+        if call_record["status"] == "completed":
+            raise HTTPException(
+                status_code=409,
+                detail="This call has already been completed.",
+            )
+
+        ended_at = datetime.now(timezone.utc).isoformat()
+
+        # Save the final outcome and completion timestamp.
+        update_response = (
+            supabase_client.table("calls")
+            .update({
+                "status": "completed",
+                "ended_at": ended_at,
+                "outcome": request.outcome,
+                "summary": request.summary,
+                "updated_at": ended_at,
+            })
+            .eq("id", str(call_id))
+            .execute()
+        )
+
+        if not update_response.data:
+            raise HTTPException(
+                status_code=500,
+                detail="The call could not be completed.",
+            )
+
+        return {
+            "message": "Call completed successfully",
+            "call": update_response.data[0],
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to complete the call. Check backend logs.",
+        ) from exc
+
