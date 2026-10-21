@@ -49,6 +49,7 @@ function formatDuration(totalSeconds) {
 }
 
 function App() {
+  const [summaryStatus, setSummaryStatus] = useState('idle')
   const [activeView, setActiveView] = useState('live')
   const [stages, setStages] = useState([])
   const [stageStatus, setStageStatus] = useState('loading')
@@ -254,44 +255,70 @@ function App() {
       setIsSaving(false)
     }
   }
+ 
+async function handleEndCall(event) {
+  event.preventDefault()
 
-  async function handleEndCall(event) {
-    event.preventDefault()
+  if (!activeCall || !outcome || isSaving) return
 
-    if (!activeCall || !outcome || isSaving) return
+  setError('')
+  setNotice('')
+  setIsSaving(true)
 
-    setError('')
-    setNotice('')
-    setIsSaving(true)
+  try {
+    const callId = activeCall.id
 
+    // Save the current stage before completing the call.
+    await saveCurrentStage()
+
+    // Save the final outcome in Supabase.
+    const data = await apiRequest(`/calls/${callId}/end`, {
+      method: 'POST',
+      body: JSON.stringify({
+        outcome,
+        summary: null,
+      }),
+    })
+
+    // Close the call before requesting the AI summary.
+    setCompletedCall(data.call)
+    setActiveCall(null)
+    setCallStartedAt(null)
+    setElapsedSeconds(0)
+    setShowEndDialog(false)
+    setOutcome('')
+    setSummaryStatus('generating')
+    setNotice('Call saved. Generating AI summary...')
+
+    // A summary failure must not undo a successfully completed call.
     try {
-      // Save the current stage before completing the call.
-      await saveCurrentStage()
-
-      const data = await apiRequest(
-        `/calls/${activeCall.id}/end`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            outcome,
-            summary: null,
-          }),
-        },
+      const summaryData = await apiRequest(
+        `/calls/${callId}/summary`,
+        { method: 'POST' },
       )
 
-      setCompletedCall(data.call)
-      setActiveCall(null)
-      setCallStartedAt(null)
-      setElapsedSeconds(0)
-      setShowEndDialog(false)
-      setOutcome('')
-      setNotice('Call saved successfully.')
-    } catch (err) {
-      setError(err.message || 'Unable to complete the call.')
-    } finally {
-      setIsSaving(false)
+      setCompletedCall((previous) =>
+        previous
+          ? { ...previous, summary: summaryData.summary }
+          : previous,
+      )
+
+      setSummaryStatus('ready')
+      setNotice('Call completed and AI summary generated successfully.')
+    } catch (summaryError) {
+      setSummaryStatus('error')
+      setError(
+        `The call was saved, but the AI summary failed: ${summaryError.message}`,
+      )
+      setNotice('Call completed. The AI summary is unavailable.')
     }
+  } catch (err) {
+    setError(err.message || 'Unable to complete the call.')
+  } finally {
+    setIsSaving(false)
   }
+}
+
 
   function handleNewCall() {
     setProspectName('')
@@ -532,6 +559,31 @@ function App() {
                   <p className="mt-1 text-sm text-emerald-800">
                     Outcome: {completedCall.outcome}
                   </p>
+                  
+{summaryStatus === 'generating' && (
+  <p className="mt-3 text-sm text-emerald-800">
+    Generating AI summary...
+  </p>
+)}
+
+{summaryStatus === 'ready' && completedCall.summary && (
+  <div className="mt-4 rounded-xl border border-emerald-200 bg-white p-4">
+    <h3 className="text-sm font-bold text-slate-900">
+      AI-generated call summary
+    </h3>
+    <p className="mt-2 whitespace-pre-line text-sm leading-6 text-slate-700">
+      {completedCall.summary}
+    </p>
+  </div>
+)}
+
+{summaryStatus === 'error' && (
+  <p className="mt-3 text-sm text-amber-800">
+    The call was saved, but no AI summary is available.
+    You can review the saved call in Past Calls.
+  </p>
+)}
+
                   <button
                     type="button"
                     onClick={handleNewCall}
